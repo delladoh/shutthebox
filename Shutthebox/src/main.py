@@ -1,8 +1,19 @@
 from numbox import *
 from dice import *
+from flask import Flask
+
+# app = Flask(__name__)
+
+# # Mmebers API Route
+# @app.route("/members")
+# def members():
+#    return {"members": numbox}
 
 
-print("Welcome to shut the box!")
+# if __name__ == "__main__":
+#     app.run(debug=True)
+    
+print("Welcome to shut the box! Enjoy!")
 
 total = 78
 gameover = False
@@ -14,7 +25,7 @@ while not gameover:
         break
     else:
         for i in numbox:
-         if i != "e":
+         if i != 13:
             print(i, end=" ")
         dice1 = roll_dice()
         dice2 = roll_dice()
@@ -23,7 +34,7 @@ while not gameover:
         print("Dice 2: " + str(dice2))
 
         if dicetotal > total:
-           print("Game Over- You Lose! Yur end total is " + total)
+           print("Game Over- You Lose! Your end total is ".format(total))
            break
 
         success = False
@@ -34,14 +45,14 @@ while not gameover:
                 valid = True
                 while number not in [2,3,4,5,6,7,8,9,10,11,12] and valid == True:
                     number = int(input("Enter the number you wish to elimate: "))
-                if number == dicetotal and numbox[number-1] != "e" and number <= total:
+                if number == dicetotal and numbox[number-1] != 13 and number <= total:
                     print("Success!")
-                    numbox[number-1] = "e"
+                    numbox[number-1] = 13
                     total -= number
                     success = True
-                elif numbox[number-1] == "e":
-                    valid = False
-                    print("Invalid input: {} is not available. Try again!".format(number))
+                elif numbox[number-1] == 13:
+                    print("Game Over- You Lose! Your end total is ".format(total))
+                    break
                 else:
                     valid = False
                     print("Invalid input")   
@@ -53,11 +64,11 @@ while not gameover:
                 for i in numbox:
                     temp2 = 0
                     temp1 += 1
-                    if i != "e":
+                    if i != 13:
                       for j in numbox:
                         
                         temp2 += 1
-                        if j != "e" and temp1 != temp2 and temp1+temp2<=12:
+                        if j != 13 and temp1 != temp2 and temp1+temp2<=12:
                             temp = temp1+temp2
                             permutation[temp-1] = 1
 
@@ -75,21 +86,21 @@ while not gameover:
                     if number1 == number2:
                         print("Your choice of numbers can not be the same, try again!")
                 numberTotal = number1 + number2
-                if numberTotal == dicetotal and numbox[number1-1] != "e" and numbox[number2-1] != "e" and numberTotal <= total:
+                if numberTotal == dicetotal and numbox[number1-1] != 13 and numbox[number2-1] != 13 and numberTotal <= total:
                         print("Success!")
-                        numbox[number1-1] = "e"
-                        numbox[number2-1] = "e"
+                        numbox[number1-1] = 13
+                        numbox[number2-1] = 13
                         total -= numberTotal
                         success = True
-                elif numbox[number1-1] == "e":
+                elif numbox[number1-1] == 13:
                         valid = False
                         print("Invalid input: {} is not available. Try again!".format(number1)) 
-                elif numbox[number2-1] == "e":
+                elif numbox[number2-1] == 13:
                         valid = False
                         print("Invalid input: {} is not available. Try again!".format(number2))
                 elif numberTotal != dicetotal:
                         valid = False
-                        print("Invalid input: {} is not equal to the dice total. Try again!".format(number))
+                        print("Invalid input: {} is not equal to the dice total. Try again!".format(numberTotal))
                 else:
                         valid = False
                         print("Invalid input") 
